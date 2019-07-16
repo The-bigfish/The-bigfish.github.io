@@ -35,23 +35,20 @@
 <link rel="canonical" href="https://the-bigfish.github.io/2019/07/14/LVM使用手册/">
 
 
-<meta name="description" content="一、首先添加一块新硬盘到服务器如何检测fdisk -l：查看硬盘及分区信息 二、对硬盘进行分区使用fdisk工具，对新增加的硬盘进行分区  fdisk /dev/sdb 点击链接查看所有中文帮助 m：获取帮助 n：增加一个新分区 会让你选择p或e：p 代表 主分区 ，e 代表扩展分区， 设置分区号、起始扇区、Last扇区，默认即可  t：改变分区类型    输入8e w：分区表写入硬盘并退出">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LVM使用手册">
 <meta property="og:url" content="https://the-bigfish.github.io/2019/07/14/LVM使用手册/index.html">
 <meta property="og:site_name" content="王有钱">
-<meta property="og:description" content="一、首先添加一块新硬盘到服务器如何检测fdisk -l：查看硬盘及分区信息 二、对硬盘进行分区使用fdisk工具，对新增加的硬盘进行分区  fdisk /dev/sdb 点击链接查看所有中文帮助 m：获取帮助 n：增加一个新分区 会让你选择p或e：p 代表 主分区 ，e 代表扩展分区， 设置分区号、起始扇区、Last扇区，默认即可  t：改变分区类型    输入8e w：分区表写入硬盘并退出">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/1.png">
 <meta property="og:image" content="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/2.png">
 <meta property="og:image" content="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/3.png">
 <meta property="og:image" content="https://the-bigfish.github.io/2019/07/14/LVM使用手册/F:%5CMyBlog%5Csource_posts%5CLVM%E5%9B%BE%E5%BA%93%5C4.png">
 <meta property="og:image" content="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/5.png.png">
-<meta property="og:updated_time" content="2019-07-15T01:51:34.839Z">
+<meta property="og:updated_time" content="2019-07-15T17:11:07.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LVM使用手册">
-<meta name="twitter:description" content="一、首先添加一块新硬盘到服务器如何检测fdisk -l：查看硬盘及分区信息 二、对硬盘进行分区使用fdisk工具，对新增加的硬盘进行分区  fdisk /dev/sdb 点击链接查看所有中文帮助 m：获取帮助 n：增加一个新分区 会让你选择p或e：p 代表 主分区 ，e 代表扩展分区， 设置分区号、起始扇区、Last扇区，默认即可  t：改变分区类型    输入8e w：分区表写入硬盘并退出">
 <meta name="twitter:image" content="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/1.png">
 
 
@@ -137,7 +134,9 @@
     
             <div class="post-content">
             <p><img src="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/1.png" alt></p>
-<h4 id="一、首先添加一块新硬盘到服务器如何检测"><a href="#一、首先添加一块新硬盘到服务器如何检测" class="headerlink" title="一、首先添加一块新硬盘到服务器如何检测"></a>一、首先添加一块新硬盘到服务器如何检测</h4><p>fdisk -l：查看硬盘及分区信息</p>
+<a id="more"></a>
+
+<h4 id="一、首先添加一块新硬盘到服务器如何检测"><a href="#一、首先添加一块新硬盘到服务器如何检测" class="headerlink" title="一、首先添加一块新硬盘到服务器如何检测"></a>一、首先添加一块新硬盘到服务器如何检测</h4><p>$ fdisk -l 查看硬盘及分区信息</p>
 <h4 id="二、对硬盘进行分区"><a href="#二、对硬盘进行分区" class="headerlink" title="二、对硬盘进行分区"></a>二、对硬盘进行分区</h4><p>使用fdisk工具，对新增加的硬盘进行分区  fdisk /dev/sdb</p>
 <p>点击链接查看<a href="https://baike.baidu.com/item/fdisk/7674242?fr=aladdin" target="_blank" rel="noopener">所有中文帮助</a></p>
 <p>m：获取帮助</p>
@@ -159,12 +158,22 @@
 <p>新建和扩容后可通过vgdisplay查看信息</p>
 <p>创建LV（）或扩容现有LV</p>
 <p>新建：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">用法：lvcreate [选项] [参数]</span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line">     -L：指定大小</span><br><span class="line">     -l：指定大小（LE数）</span><br><span class="line">     -n：指定名称</span><br><span class="line">     -s：创建快照</span><br><span class="line">     -p r：设置为只读（该选项一般用于创建快照中）</span><br><span class="line"></span><br><span class="line">  注：使用该命令创建逻辑卷时当然必须指明卷组，创建快照时必须指明针对哪个逻辑卷</span><br></pre></td></tr></table></figure>
+<pre><code>用法：lvcreate [选项] [参数]
 
-<p>在线扩容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用法：lvextend -L/-l 扩展的大小 /dev/VG_NAME/LV_NAME  </span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line">    -L：指定扩展（后）的大小。例如，-L +800M表示扩大800M，而-L 800M表示扩大至800M</span><br><span class="line"></span><br><span class="line">    -l：指定扩展（后）的大小（LE数）</span><br></pre></td></tr></table></figure>
+选项：
+     -L：指定大小
+     -l：指定大小（LE数）
+     -n：指定名称
+     -s：创建快照
+     -p r：设置为只读（该选项一般用于创建快照中）
 
-<p><strong>注：如果是新建则继续以下步骤</strong></p>
+  注：使用该命令创建逻辑卷时当然必须指明卷组，创建快照时必须指明针对哪个逻辑卷</code></pre><p>在线扩容：</p>
+<pre><code>  用法：lvextend -L/-l 扩展的大小 /dev/VG_NAME/LV_NAME  
+
+  选项：
+      -L：指定扩展（后）的大小。例如，-L +800M表示扩大800M，而-L 800M表示扩大至800M
+
+      -l：指定扩展（后）的大小（LE数）</code></pre><p><strong>注：如果是新建则继续以下步骤</strong></p>
 <h4 id="四、格式化分区"><a href="#四、格式化分区" class="headerlink" title="四、格式化分区"></a>四、格式化分区</h4><p>mkfs.ext4 /dev/vg01/lv01</p>
 <p><img src="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/5.png.png" alt></p>
 <h4 id="五、挂载分区到指定目录"><a href="#五、挂载分区到指定目录" class="headerlink" title="五、挂载分区到指定目录"></a>五、挂载分区到指定目录</h4><p>mkdir /newdisk    根目录下创建newdisk文件夹</p>
@@ -186,15 +195,24 @@
 <p><strong>这时，就需要再执行resizefs2命令重新加载逻辑卷的大小才能生效。</strong></p>
 <p>补充：</p>
 <p>1）其实lvextend可以再加一个-r的参数，就不用resize2fs了，上面的命令可以简写为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -rL +10G /dev/vg01/data</span><br></pre></td></tr></table></figure>
+<pre><code>lvextend -rL +10G /dev/vg01/data</code></pre><p>2）若要扩容的分区是xfs文件系统类型，执行resize2fs时，可能会报错：</p>
+<pre><code>#resize2fs -f /dev/vg01/data
+resize2fs 1.41.12
+resize2fs: Bad magic number in super-block while trying to open /dev/vg01/data
+Couldn&#39;t find valid filesystem superblock.</code></pre><p>需要执行xfs_growfs命令执行扩展操作</p>
+<pre><code>#xfs_growfs /dev/mapper/vg01-data
+看到以下内容即成功
+meta-data=/dev/mapper/vg01-data isize=256    agcount=4, agsize=524288 blks
+         =                       sectsz=512   attr=2, projid32bit=0
+data     =                       bsize=4096   blocks=2097152, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 2097152 to 7077888
 
-<p>2）若要扩容的分区是xfs文件系统类型，执行resize2fs时，可能会报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#resize2fs -f /dev/vg01/data</span><br><span class="line">resize2fs 1.41.12</span><br><span class="line">resize2fs: Bad magic number in super-block while trying to open /dev/vg01/data</span><br><span class="line">Couldn&apos;t find valid filesystem superblock.</span><br></pre></td></tr></table></figure>
-
-<p>需要执行xfs_growfs命令执行扩展操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#xfs_growfs /dev/mapper/vg01-data</span><br><span class="line">看到以下内容即成功</span><br><span class="line">meta-data=/dev/mapper/vg01-data isize=256    agcount=4, agsize=524288 blks</span><br><span class="line">         =                       sectsz=512   attr=2, projid32bit=0</span><br><span class="line">data     =                       bsize=4096   blocks=2097152, imaxpct=25</span><br><span class="line">         =                       sunit=0      swidth=0 blks</span><br><span class="line">naming   =version 2              bsize=4096   ascii-ci=0</span><br><span class="line">log      =internal               bsize=4096   blocks=2560, version=2</span><br><span class="line">         =                       sectsz=512   sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none                   extsz=4096   blocks=0, rtextents=0</span><br><span class="line">data blocks changed from 2097152 to 7077888</span><br><span class="line"></span><br><span class="line">最后使用df-h查看是否扩容成功</span><br></pre></td></tr></table></figure>
-
-
+最后使用df-h查看是否扩容成功</code></pre>
             </div>
           
 
@@ -212,15 +230,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2019/07/14/one/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">one</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
     
-    
-      <a class="next" href="/2019/07/14/my-first-blog/">
-        <span class="next-text nav-default">Hello World2</span>
+      <a class="next" href="/2019/07/14/hello-world/">
+        <span class="next-text nav-default">Hello World</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -244,14 +256,14 @@
       <footer id="colophon"><span class="copyright-year">
     
         &copy;
-    
+<!--    
         2014 -
-    
+      -->
     2019
-    <span class="footer-author">王有钱.</span>
-    <span class="power-by">
+    <span class="footer-author">王有钱很穷</span>
+    <!--span class="power-by">
         由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a> 强力驱动
-    </span>
+    </span-->
 </span>
 
       </footer>

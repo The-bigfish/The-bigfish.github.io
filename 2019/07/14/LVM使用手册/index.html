@@ -158,22 +158,12 @@
 <p>新建和扩容后可通过vgdisplay查看信息</p>
 <p>创建LV（）或扩容现有LV</p>
 <p>新建：</p>
-<pre><code>用法：lvcreate [选项] [参数]
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">用法：lvcreate [选项] [参数]</span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line">     -<span class="ruby">L：指定大小</span></span><br><span class="line"><span class="ruby">     -l：指定大小（LE数）</span></span><br><span class="line"><span class="ruby">     -n：指定名称</span></span><br><span class="line"><span class="ruby">     -s：创建快照</span></span><br><span class="line"><span class="ruby">     -p r：设置为只读（该选项一般用于创建快照中）</span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">  注：使用该命令创建逻辑卷时当然必须指明卷组，创建快照时必须指明针对哪个逻辑卷</span></span><br></pre></td></tr></table></figure>
 
-选项：
-     -L：指定大小
-     -l：指定大小（LE数）
-     -n：指定名称
-     -s：创建快照
-     -p r：设置为只读（该选项一般用于创建快照中）
+<p>在线扩容：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用法：lvextend -L/-l 扩展的大小 /dev/VG_NAME/LV_NAME  </span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line">    -L：指定扩展（后）的大小。例如，-L +<span class="number">800</span>M表示扩大<span class="number">800</span>M，而-L <span class="number">800</span>M表示扩大至<span class="number">800</span>M</span><br><span class="line"></span><br><span class="line">    -l：指定扩展（后）的大小（LE数）</span><br></pre></td></tr></table></figure>
 
-  注：使用该命令创建逻辑卷时当然必须指明卷组，创建快照时必须指明针对哪个逻辑卷</code></pre><p>在线扩容：</p>
-<pre><code>  用法：lvextend -L/-l 扩展的大小 /dev/VG_NAME/LV_NAME  
-
-  选项：
-      -L：指定扩展（后）的大小。例如，-L +800M表示扩大800M，而-L 800M表示扩大至800M
-
-      -l：指定扩展（后）的大小（LE数）</code></pre><p><strong>注：如果是新建则继续以下步骤</strong></p>
+<p><strong>注：如果是新建则继续以下步骤</strong></p>
 <h4 id="四、格式化分区"><a href="#四、格式化分区" class="headerlink" title="四、格式化分区"></a>四、格式化分区</h4><p>mkfs.ext4 /dev/vg01/lv01</p>
 <p><img src="https://the-bigfish.github.io/2019/07/14/LVM%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/5.png.png" alt></p>
 <h4 id="五、挂载分区到指定目录"><a href="#五、挂载分区到指定目录" class="headerlink" title="五、挂载分区到指定目录"></a>五、挂载分区到指定目录</h4><p>mkdir /newdisk    根目录下创建newdisk文件夹</p>
@@ -195,24 +185,15 @@
 <p><strong>这时，就需要再执行resizefs2命令重新加载逻辑卷的大小才能生效。</strong></p>
 <p>补充：</p>
 <p>1）其实lvextend可以再加一个-r的参数，就不用resize2fs了，上面的命令可以简写为：</p>
-<pre><code>lvextend -rL +10G /dev/vg01/data</code></pre><p>2）若要扩容的分区是xfs文件系统类型，执行resize2fs时，可能会报错：</p>
-<pre><code>#resize2fs -f /dev/vg01/data
-resize2fs 1.41.12
-resize2fs: Bad magic number in super-block while trying to open /dev/vg01/data
-Couldn&#39;t find valid filesystem superblock.</code></pre><p>需要执行xfs_growfs命令执行扩展操作</p>
-<pre><code>#xfs_growfs /dev/mapper/vg01-data
-看到以下内容即成功
-meta-data=/dev/mapper/vg01-data isize=256    agcount=4, agsize=524288 blks
-         =                       sectsz=512   attr=2, projid32bit=0
-data     =                       bsize=4096   blocks=2097152, imaxpct=25
-         =                       sunit=0      swidth=0 blks
-naming   =version 2              bsize=4096   ascii-ci=0
-log      =internal               bsize=4096   blocks=2560, version=2
-         =                       sectsz=512   sunit=0 blks, lazy-count=1
-realtime =none                   extsz=4096   blocks=0, rtextents=0
-data blocks changed from 2097152 to 7077888
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">lvextend</span> -rL +<span class="number">10</span>G /dev/vg01/<span class="class"><span class="keyword">data</span></span></span><br></pre></td></tr></table></figure>
 
-最后使用df-h查看是否扩容成功</code></pre>
+<p>2）若要扩容的分区是xfs文件系统类型，执行resize2fs时，可能会报错：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#resize2fs -f /dev/vg01/<span class="keyword">data</span></span><br><span class="line">resize2fs <span class="number">1.41</span>.12</span><br><span class="line">resize2fs: Bad magic number <span class="keyword">in</span> <span class="keyword">super</span>-block <span class="keyword">while</span> trying to <span class="keyword">open</span> /dev/vg01/<span class="keyword">data</span></span><br><span class="line">Couldn<span class="string">'t find valid filesystem superblock.</span></span><br></pre></td></tr></table></figure>
+
+<p>需要执行xfs_growfs命令执行扩展操作</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#xfs_growfs /dev/mapper/vg01-data</span></span><br><span class="line">看到以下内容即成功</span><br><span class="line"><span class="attribute">meta-data</span>=/dev/mapper/vg01-data <span class="attribute">isize</span>=256    <span class="attribute">agcount</span>=4, <span class="attribute">agsize</span>=524288 blks</span><br><span class="line">         =                       <span class="attribute">sectsz</span>=512   <span class="attribute">attr</span>=2, <span class="attribute">projid32bit</span>=0</span><br><span class="line">data     =                       <span class="attribute">bsize</span>=4096   <span class="attribute">blocks</span>=2097152, <span class="attribute">imaxpct</span>=25</span><br><span class="line">         =                       <span class="attribute">sunit</span>=0      <span class="attribute">swidth</span>=0 blks</span><br><span class="line">naming   =version 2              <span class="attribute">bsize</span>=4096   <span class="attribute">ascii-ci</span>=0</span><br><span class="line">log      =internal               <span class="attribute">bsize</span>=4096   <span class="attribute">blocks</span>=2560, <span class="attribute">version</span>=2</span><br><span class="line">         =                       <span class="attribute">sectsz</span>=512   <span class="attribute">sunit</span>=0 blks, <span class="attribute">lazy-count</span>=1</span><br><span class="line">realtime =none                   <span class="attribute">extsz</span>=4096   <span class="attribute">blocks</span>=0, <span class="attribute">rtextents</span>=0</span><br><span class="line">data blocks changed <span class="keyword">from</span> 2097152 <span class="keyword">to</span> 7077888</span><br><span class="line"></span><br><span class="line">最后使用df-h查看是否扩容成功</span><br></pre></td></tr></table></figure>
+
+
             </div>
           
 
